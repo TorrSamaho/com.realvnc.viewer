@@ -1,0 +1,27 @@
+app-id: com.realvnc.viewer
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: vncviewer
+finish-args:
+  - --share=network
+  - --socket=x11
+  - --persist=.vnc
+modules:
+  - name: vncviewer
+    sources:
+      - type: file
+        url: https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.12.1-Linux-x64.deb
+        sha256: 588a9adccab720ab2591e1b642506d02fc7f14a3da4cb8202f34d8f22ad13729
+      - type: file
+        path: com.realvnc.viewer.metainfo.xml
+    buildsystem: simple
+    build-commands:
+      - ar vx VNC-Viewer-7.12.1-Linux-x64.deb
+      - tar xvf data.tar.xz
+      - install -Dm755 usr/bin/vncviewer /app/bin/vncviewer
+    post-install:
+      - install -Dm644 usr/share/icons/hicolor/48x48/apps/vncviewer48x48.png ${FLATPAK_DEST}/share/icons/hicolor/48x48/apps/${FLATPAK_ID}.svg
+      - sed -e "s|Icon=/usr/share/icons/hicolor/48x48/apps/vncviewer48x48.png|Icon=${FLATPAK_ID}|g" usr/share/applications/realvnc-vncviewer.desktop > ${FLATPAK_ID}.desktop
+      - install -Dm644 ${FLATPAK_ID}.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
