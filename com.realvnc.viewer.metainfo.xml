@@ -23,6 +23,7 @@
 
   <launchable type="desktop-id">com.realvnc.viewer.desktop</launchable>
   <releases>
+    <release version="7.13.1" date="2024-12-12"/>
     <release version="7.13.0" date="2024-11-29"/>
     <release version="7.12.1" date="2024-08-02"/>
   </releases>
