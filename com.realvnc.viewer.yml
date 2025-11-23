@@ -5,19 +5,20 @@ sdk: org.freedesktop.Sdk
 command: vncviewer
 finish-args:
   - --share=network
+  - --share=ipc
   - --socket=x11
   - --persist=.vnc
 modules:
   - name: vncviewer
     sources:
       - type: file
-        url: https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.13.1-Linux-x64.deb
-        sha256: e9bc98d197ff5dc5e078a41d6077e6ba07dd4dc3257b0557f46cc17d763e31d0
+        url: https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.15.1-Linux-x64.deb
+        sha256: 05e3c75e053507492f7b9a3f2d75925ac6b5dc9249af73ae6c1ac51bc5d6aabb
       - type: file
         path: com.realvnc.viewer.metainfo.xml
     buildsystem: simple
     build-commands:
-      - ar vx VNC-Viewer-7.13.1-Linux-x64.deb
+      - ar vx VNC-Viewer-7.15.1-Linux-x64.deb
       - tar xvf data.tar.xz
       - install -Dm755 usr/bin/vncviewer /app/bin/vncviewer
     post-install:
