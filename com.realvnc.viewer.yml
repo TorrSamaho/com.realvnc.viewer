@@ -12,13 +12,22 @@ modules:
   - name: vncviewer
     sources:
       - type: file
-        url: https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.15.1-Linux-x64.deb
+        only-arches:
+          - x86_64
+        url: https://web.archive.org/web/20251228062031/https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.15.1-Linux-x64.deb
         sha256: 05e3c75e053507492f7b9a3f2d75925ac6b5dc9249af73ae6c1ac51bc5d6aabb
+        dest-filename: vnc-viewer.deb
+      - type: file
+        only-arches:
+          - aarch64
+        url: https://web.archive.org/web/20251228062031/https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.15.1-Linux-ARM64.deb
+        sha256: ff746082e9defb3e3350bf16f17bb6232fc68b944a67575ea03382b779ea7061
+        dest-filename: vnc-viewer.deb
       - type: file
         path: com.realvnc.viewer.metainfo.xml
     buildsystem: simple
     build-commands:
-      - ar vx VNC-Viewer-7.15.1-Linux-x64.deb
+      - ar vx vnc-viewer.deb
       - tar xvf data.tar.xz
       - install -Dm755 usr/bin/vncviewer /app/bin/vncviewer
     post-install:
